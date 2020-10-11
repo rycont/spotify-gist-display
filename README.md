@@ -8,6 +8,7 @@ Before running, you need to write down `.env` file.
 RefreshToken=Spotify Authorization Refresh Token
 GistId=Gist Uploaded to
 GithubToken=gist owner token
+BasicAuthenticator=B64 encoded `{ClientID}:{ClientSecret}` (Spotify)
 ```
 
 and then, just run

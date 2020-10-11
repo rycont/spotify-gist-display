@@ -29,7 +29,7 @@ interface Track {
 }
 
 (async () => {
-    const [RefreshToken, GistId, GithubToken] = ['RefreshToken', 'GistId', 'GithubToken'].map(Deno.env.get)
+    const [RefreshToken, GistId, GithubToken, BasicAuthenticator] = ['RefreshToken', 'GistId', 'GithubToken', 'BasicAuthenticator'].map(Deno.env.get)
     if (!(RefreshToken && GistId && GithubToken)) throw "Requierd env was not provided"
 
     const { access_token, token_type } = await (await fetch("https://accounts.spotify.com/api/token", {
@@ -39,7 +39,7 @@ interface Track {
         }),
         method: 'POST',
         headers: {
-            Authorization: 'Basic MGFlMWNhYzBhNjlmNDM3MTg3YmE2ZDg4Nzc3ZDIxMjA6MGNjMzc2MTJmOGVkNGNjNjg3NDYwYzYwN2RhNDM4MTE='
+            Authorization: `Basic ${BasicAuthenticator}`
         }
     })).json()
     
