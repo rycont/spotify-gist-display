@@ -19,12 +19,12 @@ interface Track {
         name: "BTS",
         type: "artist",
       }[]
-      duration_ms: number,
-      external_urls: { spotify: string },
+      "duration_ms": number,
+      "external_urls": { spotify: string },
       href: string
       id: string
       name: string
-      preview_url: string
+      "preview_url": string
     }
 }
 
@@ -32,7 +32,7 @@ interface Track {
     const [RefreshToken, GistId, GithubToken, BasicAuthenticator] = ['RefreshToken', 'GistId', 'GithubToken', 'BasicAuthenticator'].map(Deno.env.get)
     if (!(RefreshToken && GistId && GithubToken)) throw "Requierd env was not provided"
 
-    const { access_token, token_type } = await (await fetch("https://accounts.spotify.com/api/token", {
+    const { access_token: accessToken, token_type: tokenType } = await (await fetch("https://accounts.spotify.com/api/token", {
         body: new URLSearchParams({
             grant_type: 'refresh_token',
             refresh_token: RefreshToken
@@ -45,13 +45,13 @@ interface Track {
     
     const tracks = (await (await fetch('https://api.spotify.com/v1/me/tracks', {
         headers: {
-            Authorization: token_type + ' ' + access_token
+            Authorization: tokenType + ' ' + accessToken
         }
     })).json()).items as Track[]
 
     console.log(tracks[0].track.album)
 
-    const pritified = (tracks.map((e, i) =>
+    const pritified = (tracks.map(e =>
         `[${e.track.name}] - ${e.track.artists.map(e => e.name).join(', ')}`
     ).join('\n'))
 
