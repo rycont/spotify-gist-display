@@ -71,4 +71,4 @@ Created from Deno with Github Actions!`
         }),
         method: 'PATCH'
       })
-})()
+})();
